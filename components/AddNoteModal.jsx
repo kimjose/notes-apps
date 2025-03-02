@@ -5,7 +5,7 @@ const AddNoteModal = ({modalVisible,
     newNote,
     setNewNote,
     addNote}) => {
-console.log(modalVisible)
+console.log(newNote)
     return (
         <Modal
             animationType="slide"
