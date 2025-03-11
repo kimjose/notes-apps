@@ -24,10 +24,14 @@ const NoteScreen = () => {
         setModalVisible(false);
     }
 
+    const deleteNote = (id) => {
+        setNotes(notes.filter(note => note.id !== id));
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Notes</Text>
-            <NoteList notes={notes} />
+            <NoteList notes={notes} setNewNote={setNewNote} setModalVisible={setModalVisible} deleteNote={deleteNote} />
 
             <TouchableOpacity onPress={() => {
                 setModalVisible(true)
