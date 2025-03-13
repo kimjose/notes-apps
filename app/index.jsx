@@ -9,7 +9,7 @@ const HomeScreen = () => {
     <View
       style={styles.container}
     >
-      <image source={PosterImage} style={styles.image} />
+      {/* <image source={PosterImage} style={styles.image} /> */}
       <Text style={styles.title}>Welcome to Notes App</Text>
       <Text style={styles.subtitle}>Capture your thoughts</Text>
       <TouchableOpacity onPress={() => router.push("/notes")}
