@@ -11,7 +11,8 @@ export default {
         if (response.error) {
             return {error: response.error};
         }
-        return {data: response}
+        console.log(response)
+        return {data: response.documents}
     },
     async createNote(data) {
         return await databaseService.createDocument(dbId, colId, data)

@@ -22,6 +22,7 @@ const NoteScreen = () => {
                 setError(response.error);
                 Alert.alert('Error', response.error);
             } else {
+                console.log(response.data);
                 setNotes(response.data);
                 setError(null);
             }
@@ -40,7 +41,7 @@ const NoteScreen = () => {
     }
 
     const deleteNote = (id) => {
-        setNotes(notes.filter(note => note.id !== id));
+        setNotes(notes.filter(note => note.$id !== id));
     }
 
     return (

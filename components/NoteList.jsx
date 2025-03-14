@@ -6,9 +6,9 @@ const NoteList = ({ notes, setNewNote, setModalVisible, deleteNote }) => {
         <View>
             <FlatList
                 data={notes}
-                keyExtractor={item => item.id.toString()}
+                keyExtractor={item => item.$id}
                 renderItem={({ item }) => (
-                    <TouchableOpacity key={item.id} onPress={(item) => {
+                    <TouchableOpacity key={item.$id} onPress={(item) => {
                         console.log(item.title);
                         setNewNote(item)
                         setModalVisible(true)
