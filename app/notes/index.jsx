@@ -1,22 +1,15 @@
 import { useState, useEffect } from "react";
 import {
     Text, View, StyleSheet, TouchableOpacity,
-    Alert
+    Alert,
+    ActivityIndicator
 } from "react-native";
 import NoteList from "@/components/NoteList";
 import AddNoteModal from "@/components/AddNoteModal";
 import noteService from "@/services/noteService";
 
 const NoteScreen = () => {
-    const [notes, setNotes] = useState([{
-        id: 1,
-        title: 'Note 1',
-        content: 'This is the content of note 1.'
-    }, {
-        id: 2,
-        title: 'Note 2',
-        content: 'This is the content of note 2.'
-    }]);
+    const [notes, setNotes] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -36,15 +29,21 @@ const NoteScreen = () => {
             }
             setLoading(false);
         }
-        //fetchNotes();
+        fetchNotes();
     }, [])
 
-    const addNote = () => {
+    const addNote = async () => {
         if (newNote.title === '' || newNote.content === '') {
             return;
         }
-        setNotes([...notes, { id: notes.length + 1, ...newNote }]);
-        setNewNote({ title: '', content: '' });
+        const response = await noteService.createNote(newNote.title, newNote.content);
+        if (response.error) {
+            Alert.alert('Error', response.error);
+            return;
+        } else {
+            setNotes([...notes, { id: notes.length + 1, ...response.data }]);
+        }
+
         setModalVisible(false);
     }
 
@@ -55,7 +54,12 @@ const NoteScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Notes</Text>
-            <NoteList notes={notes} setNewNote={setNewNote} setModalVisible={setModalVisible} deleteNote={deleteNote} />
+            {loading ?
+                (<ActivityIndicator size='large' color='#f4511e' />) :
+                (
+                    <>{error && <Text>Error: {error}</Text>}
+                        <NoteList notes={notes} setNewNote={setNewNote} setModalVisible={setModalVisible} deleteNote={deleteNote} />
+                    </>)}
 
             <TouchableOpacity onPress={() => {
                 setModalVisible(true)

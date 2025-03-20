@@ -14,8 +14,20 @@ export default {
         console.log(response)
         return {data: response.documents}
     },
-    async createNote(data) {
-        return await databaseService.createDocument(dbId, colId, data)
+    async createNote(title, content) {
+        if (!title || !content) {
+            return {error: 'Title and content are required'}
+        }
+        const data = {
+            title,
+            content,
+            created_at: new Date().toISOString()
+        }
+        const response = await databaseService.createDocument(dbId, colId, ID.unique(), data)
+        if (response.error) {
+            return {error: response.error}
+        }
+        return {data: response}
     },
     async updateNote(noteId, data) {
         return await databaseService.updateDocument(dbId, colId, noteId, data)
