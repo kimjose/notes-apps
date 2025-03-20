@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
         padding: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#ccc',
+        minWidth:80
     },
     title: {
         fontSize: 16,

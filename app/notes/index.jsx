@@ -8,7 +8,15 @@ import AddNoteModal from "@/components/AddNoteModal";
 import noteService from "@/services/noteService";
 
 const NoteScreen = () => {
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState([{
+        id: 1,
+        title: 'Note 1',
+        content: 'This is the content of note 1.'
+    }, {
+        id: 2,
+        title: 'Note 2',
+        content: 'This is the content of note 2.'
+    }]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [modalVisible, setModalVisible] = useState(false);
@@ -28,8 +36,8 @@ const NoteScreen = () => {
             }
             setLoading(false);
         }
-        fetchNotes();
-    },[])
+        //fetchNotes();
+    }, [])
 
     const addNote = () => {
         if (newNote.title === '' || newNote.content === '') {

@@ -3,8 +3,8 @@ import NoteItem from "./NoteItem";
 
 const NoteList = ({ notes, setNewNote, setModalVisible, deleteNote }) => {
     return (
-        <View>
-            <FlatList
+        <View style={{width: '90%' }}>
+            <FlatList 
                 data={notes}
                 keyExtractor={item => item.$id}
                 renderItem={({ item }) => (
